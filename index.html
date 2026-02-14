@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine Surprise</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial, sans-serif;
+    background:black;
+    color:white;
+    text-align:center;
+    overflow:hidden;
+}
+
+h1{
+    margin-top:50px;
+    color:red;
+}
+
+button{
+    padding:12px 25px;
+    font-size:18px;
+    margin:15px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+#yesBtn{ background:red; color:white; }
+#noBtn{ background:grey; color:white; position:absolute; }
+
+.heart{
+    position:fixed;
+    top:-20px;
+    color:red;
+    font-size:20px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(100vh);
+        opacity:0;
+    }
+}
+
+#gift{
+    display:none;
+    font-size:80px;
+    cursor:pointer;
+    margin-top:30px;
+}
+
+#letter{
+    display:none;
+    width:70%;
+    margin:20px auto;
+    background:white;
+    color:black;
+    padding:20px;
+    border-radius:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="title"> Aditya Tripathi, will you be my Valentine? ❤️</h1>
+
+<button id="yesBtn">Yes</button>
+<button id="noBtn">No</button>
+
+<div id="gift">🎁</div>
+
+<div id="letter">
+<p>
+To My Jan 🖇️✨ <br><br>
+  
+
+<br><br>
+<b>Happy Valentine’s Day to My Rabbit 🐰 </b>
+</p>
+</div>
+
+<audio id="music" loop>
+<source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+let yesBtn = document.getElementById("yesBtn");
+let noBtn = document.getElementById("noBtn");
+let size = 18;
+
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("click", moveButton);
+
+function moveButton(){
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 100);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+
+    size += 5;
+    yesBtn.style.fontSize = size + "px";
+    yesBtn.style.padding = "15px 30px";
+}
+
+yesBtn.addEventListener("click", function(){
+    document.getElementById("title").innerHTML="Yeaah! I Love You Forever ❤️<br>Do you love me?";
+    startHearts();
+    document.getElementById("music").play();
+
+    yesBtn.onclick = showGift;
+});
+
+function startHearts(){
+    setInterval(()=>{
+        let heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="❤";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.animationDuration=(Math.random()*3+2)+"s";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),5000);
+    },300);
+}
+
+function showGift(){
+    document.getElementById("gift").style.display="block";
+    yesBtn.style.display="none";
+    noBtn.style.display="none";
+}
+
+document.getElementById("gift").onclick=function(){
+    document.getElementById("letter").style.display="block";
+};
+</script>
+
+</body>
+</html>
